@@ -22,7 +22,9 @@
 <br>
 
 ## :sparkles: API ##
-Built using nodeJs, ExpressJs and Typescript 
+Built using nodeJs, ExpressJs and Typescript.
+
+Functionality can be tested through this exposed API.
 ``` javascript
 http://localhost:3000/api/sku?id=LTV719449/39/39u
 ``` 
