@@ -1,4 +1,3 @@
-# NODE-TYPESCRIPT
 
 <div align="center" id="top"> 
   &#xa0;
@@ -22,11 +21,8 @@
 
 <br>
 
-## :dart: About ##
-
-
 ## :sparkles: API ##
-Built using nodeJs ExpressJs with Typescript 
+Built using nodeJs, ExpressJs and Typescript 
 ``` javascript
 http://localhost:3000/api/sku?id=LTV719449/39/39u
 ``` 
