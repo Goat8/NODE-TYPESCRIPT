@@ -1,4 +1,5 @@
 import { SKURepository } from '../../models/sku/sku.repository';
+import { TransactionType } from '../../types/sku.type';
 import { SKUService } from '../sku/sku.service';
 import { Container } from 'typedi';
 describe('SKUService', () => {
@@ -7,7 +8,35 @@ describe('SKUService', () => {
           stockFileName:"testStock.json", 
           transactionFileName:"testTransaction.json",
           fetchStockBySKU: jest.fn().mockResolvedValue({ stock: 10 }),
-          fetchTransactionsBySKU: jest.fn().mockResolvedValue([{ qty: 3 }, { qty: 2 }]),
+          fetchTransactionsBySKU: jest.fn().mockResolvedValue([{ qty: 3,type:TransactionType.ORDER }, { qty: 2, type:TransactionType.REFUND }]),
+        };
+    
+        Container.set(SKURepository, mockSKURepository);
+        const skuService = new SKUService(mockSKURepository);
+        const result = await skuService.findStockLevel('ABC123');
+            expect(result).toBe(9);
+      });
+
+      it('should calculate stock level correctly for all refund transactions', async () => {
+        const mockSKURepository = {
+          stockFileName:"testStock.json", 
+          transactionFileName:"testTransaction.json",
+          fetchStockBySKU: jest.fn().mockResolvedValue({ stock: 10 }),
+          fetchTransactionsBySKU: jest.fn().mockResolvedValue([{ qty: 3,type:TransactionType.REFUND }, { qty: 2, type:TransactionType.REFUND }]),
+        };
+    
+        Container.set(SKURepository, mockSKURepository);
+        const skuService = new SKUService(mockSKURepository);
+        const result = await skuService.findStockLevel('ABC123');
+            expect(result).toBe(15);
+      });
+
+      it('should calculate stock level correctly for all order by transactions', async () => {
+        const mockSKURepository = {
+          stockFileName:"testStock.json", 
+          transactionFileName:"testTransaction.json",
+          fetchStockBySKU: jest.fn().mockResolvedValue({ stock: 10 }),
+          fetchTransactionsBySKU: jest.fn().mockResolvedValue([{ qty: 3,type:TransactionType.ORDER }, { qty: 2, type:TransactionType.ORDER }]),
         };
     
         Container.set(SKURepository, mockSKURepository);
