@@ -26,11 +26,11 @@ export class SKUService {
     throw new Error(`No Transaction Found against ${sku}`);
   }
   const {stock:qty} = stock;
-  
+
   const orderedTransactions = transactions.filter((transaction:{type:TransactionType})=> transaction.type===TransactionType.ORDER) || [];
   const refundTransactions = transactions.filter((transaction:{type:TransactionType})=> transaction.type===TransactionType.REFUND) ||[];
   
-  const totalOrderedQuantity = orderedTransactions.reduce((accumulator, currentObject) => {
+  const totalOrderedQuantities = orderedTransactions.reduce((accumulator, currentObject) => {
     return accumulator + currentObject.qty;
   }, 0);
   
@@ -38,6 +38,6 @@ export class SKUService {
     return accumulator + currentObject.qty;
   }, 0);
 
-   return qty-totalOrderedQuantity+totalRefundedQuantities;
+   return qty-totalOrderedQuantities+totalRefundedQuantities;
   };
 }
