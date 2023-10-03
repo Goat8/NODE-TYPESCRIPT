@@ -1,12 +1,13 @@
 {
   "name": "typescript",
   "version": "1.0.0",
-  "description": "",
+  "description": "ExpressJs app, that exposes an api to return the current stock levels for a given SKU by combining the data in these two files",
   "main": "app.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest",
     "build": "tsc",
-    "start": "node dist/app.js"
+    "start": "node dist/app.js",
+    "dev": "nodemon --watch src --ext ts --exec 'ts-node' src/app.ts"
   },
   "keywords": [],
   "author": "",
